@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <title>Flight Scheduler</title>
+</head>
+<body onload="loadInfo()">
+    <div id="main">
+        <h1 id="heading">Arrivals</h1>
+        <span id="span1"></span>
+    </div>
+    <script>
+            function loadInfo(){
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET','flights.json',true);
+                xhr.onload = function(){
+                    var users = JSON.parse(this.responseText);
+                    var output = "";
+                    /* This loop iterates over the flights.json file and extracts the data to the <span> tag*/
+                    for(var i in users){
+                     output+= 
+                        '<div class=users>'+
+                        '<span id="destination">'+users[i].from + " to " + users[i].to +'</span>'+
+                            '<div id="secondline>'+
+                                '<span id="time">'+users[i].time+'</span>'+ "  "+
+                                '<span id="status">'+users[i].status+'</span>'+
+                            '</div>'+
+                        '</div>';
+                    }
+                    document.getElementById('span1').innerHTML=output;
+                }
+                xhr.send();
+            }
+    </script>
+</body>
+</html>
